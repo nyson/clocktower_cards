@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+
+<head>
+
+    <style>
+        @font-face {
+            font-family: "Dumbledor";
+            src:
+                local("Dumbledor"),
+                url("dumbledor/dum2/dum2.ttf")
+        }
+
+        @page {
+            size: landscape;
+
+            margin: 15px;
+            /* border: 1px solid red; */
+        }
+
+        @media print {
+
+            .no-print,
+            .no-print * {
+                display: none !important;
+            }
+        div.cardborder {
+            break-inside: avoid;
+        }
+
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            color: #5C1F22;
+
+        }
+
+        #wrapper {
+            height: 210mm;
+            width: 297mm;
+        }
+
+        .cardborder
+        {
+            border: 0.1in solid #5C1F22;
+            border-radius: 5px;
+            margin: 0.05in;
+            float: left;
+
+            padding: 0px;
+        }
+        .card {
+            box-sizing: border-box;
+            text-align: center;
+            
+            width: 2.5in;
+            height: 3.5in;
+            margin: 0px;
+            padding: 0.05in;
+            background-image: url(content-background.webp);
+        }
+
+        .card img {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: -0.40in;
+            margin-bottom: -0.40in;
+            width: 2.0in;
+
+        }
+
+        .card h2 {
+            margin-top: 0px;
+            margin-bottom: 0px;
+            font-size: 0.25in;
+            text-align: center;
+            font-family: Dumbledor;
+            text-transform: uppercase;
+        }
+
+
+        .card p {
+            margin-left: 5px;
+            margin-right: auto;
+            margin-top: 0px;
+            font-size: 0.80rem;
+
+        }
+
+        .card hr {
+            margin-top: 2px;
+            margin-bottom: 10px;
+            border: 1px solid #5c1f2229;
+        }
+
+        .card p.team {
+            font-size: 0.1in;
+            text-transform: uppercase;
+            text-align: right;
+            margin:0px;
+            margin-top: -0.25in;
+            font-weight: bold;
+            font-family: Dumbledor;
+        }
+
+        .card p.team.townsfolk {color: rgb(0, 106, 255)} 
+        .card p.team.outsider {color: rgb(51, 176, 163)} 
+        .card p.team.minion {color: rgb(209, 122, 0); }
+        .card p.team.demon {color: rgb(199, 0, 43); } 
+        .card p.team.traveller {color: rgb(73, 139, 26); } 
+
+        .card p.rule {
+            font-weight: bold;
+        }
+
+        .card p.flavour {
+            text-align: center;
+            font-style: italic;
+        }
+
+        .card .smalltext {
+            font-size: 0.7rem !important;
+        }
+    </style>
+    <script>
+        var script = [
+            {
+                "id": "_meta",
+                "name": "Crystal Lake",
+                "author": "Joakim Petersson"
+            },
+            {
+                "id": "empath"
+            },
+            {
+                "id": "sailor"
+            },
+            {
+                "id": "dreamer"
+            },
+            {
+                "id": "villageidiot"
+            },
+            {
+                "id": "fortuneteller"
+            },
+            {
+                "id": "gossip"
+            },
+            {
+                "id": "savant"
+            },
+            {
+                "id": "philosopher"
+            },
+            {
+                "id": "fool"
+            },
+            {
+                "id": "tealady"
+            },
+            {
+                "id": "ravenkeeper"
+            },
+            {
+                "id": "cannibal"
+            },
+            {
+                "id": "banshee"
+            },
+            {
+                "id": "tinker"
+            },
+            {
+                "id": "sweetheart"
+            },
+            {
+                "id": "drunk"
+            },
+            {
+                "id": "hatter"
+            },
+            {
+                "id": "godfather"
+            },
+            {
+                "id": "devilsadvocate"
+            },
+            {
+                "id": "harpy"
+            },
+            {
+                "id": "witch"
+            },
+            {
+                "id": "psychopath"
+            },
+            {
+                "id": "shabaloth"
+            },
+            {
+                "id": "po"
+            },
+            {
+                "id": "vigormortis"
+            },
+            {
+                "id": "apprentice"
+            },
+            {
+                "id": "butcher"
+            },
+            {
+                "id": "gunslinger"
+            },
+            {
+                "id": "judge"
+            },
+            {
+                "id": "voudon"
+            }
+        ]
+        var chars = {
+            empath: {
+                "id": "empath",
+                "name": "Empath",
+                "team": "townsfolk",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/1/13/Icon_empath.png"
+                ],
+                "ability": "Each night, you learn how many of your 2 alive neighbors are evil.",
+                "flavour": "My skin prickles. Something is not right here. I can feel it.",
+            },
+            sailor: {
+                "id": "sailor",
+                "name": "Sailor",
+                "team": "townsfolk",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/1/16/Icon_sailor.png"
+                ],
+                "ability": "Each night, choose an alive player: either you or they are drunk until dusk. You can't die.",
+                "flavour": "I'll drink any one of yer under the table! You! The chatterbox! Reckon you can take me? No? Howza 'bout you, Grandma? You ever tried Old McKillys Extra Spiced Rum before? Guaranteed to put hairs on yer chest! Step aboard, aye!",
+            },
+            dreamer: {
+                "id": "dreamer",
+                "name": "Dreamer",
+                "team": "townsfolk",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/f/f2/Icon_dreamer.png"
+                ],
+                "ability": "Each night, choose a player (not yourself or Travellers): you learn 1 good & 1 evil character, 1 of which is correct.",
+                "flavour": "I remember the Clockmaker. The sky was red and it was raining fractal triangles. There was a smell of violets and a bubbling sound. A woman with glowing eyes and a scraggly beard was hissing at the sky. Then, I awoke.",
+            },
+            villageidiot: {
+                "id": "villageidiot",
+                "name": "Village idiot",
+                "team": "townsfolk",
+                "image": [
+                    "Icon_villageidiot.png"
+                ],
+                "ability": "Each night, choose a player: you learn their alignment. [+0 to +2 Village Idiots. 1 of the extras is drunk]",
+                "flavour": "Roses are blue, and violets are red, Please reverse what I just said.",
+                "firstNight": 33,
+                "otherNight": 16,
+                "times": 3
+            },
+            fortuneteller: {
+                "id": "fortuneteller",
+                "name": "Fortune Teller",
+                "team": "townsfolk",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/9/97/Icon_fortuneteller.png"
+                ],
+                "ability": "Each night, choose 2 players: you learn if either is a Demon. There is a good player that registers as a Demon to you.",
+                "flavour": "I sense great evil in your soul! But... that could just be your perfume. I am allergic to Elderberry.",
+            },   
+            gossip: {
+                "id": "gossip",
+                "name": "Gossip",
+                "team": "townsfolk",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/c/c7/Icon_gossip.png"
+                ],
+                "ability": "Each day, you may make a public statement. Tonight, if it was true, a player dies.",
+                "flavour": "Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah. Blah.",
+            },     
+            savant: {
+                "id": "savant",
+                "name": "Savant",
+                "team": "townsfolk",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/d/d5/Icon_savant.png"
+                ],
+                "ability": "Each day, you may visit the Storyteller to learn 2 things in private: 1 is true & 1 is false.",
+                "flavour": "Seventy-two matchsticks on the floor... the sun sets early but the moon is unchanged... a torn piece of cloth... evil in the manor house... three by three... the one we trusted is not what he seems... green light means magnesium... residue, but the pattern is wrong... Seventy-two matchsticks on the floor...",
+            },    
+            philosopher: {
+                "id": "philosopher",
+                "name": "Philosopher",
+                "team": "townsfolk",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/5/5d/Icon_philosopher.png"
+                ],
+                "ability": "Once per game, at night, choose a good character: gain that ability. If this character is in play, they are drunk.",
+                "flavour": "If anything is real, beer is real. Drink, for tomorrow we may die.",
+            },   
+            fool: {
+                "id": "fool",
+                "name": "Fool",
+                "team": "townsfolk",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/d/d9/Icon_fool.png"
+                ],
+                "ability": "The first time you die, you don't.",
+                "flavour": "...and the King said 'What?! I've never even owned a pair of rubber pantaloons, let alone a custard cannon!' Ho-ho! Jolly day!",
+            },   
+            tealady: {
+                "id": "tealady",
+                "name": "Tea Lady",
+                "team": "townsfolk",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/1/16/Icon_tealady.png"
+                ],
+                "ability": "If both your alive neighbors are good, they can't die.",
+                "flavour": "If you are cold, tea will warm you. If you are too heated, tea will cool you. If you are depressed, tea will cheer you. If you are excited, tea will calm you.",
+            },   
+            ravenkeeper: {
+                "id": "gossip",
+                "name": "Ravenkeeper",
+                "team": "townsfolk",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/e/ef/Icon_ravenkeeper.png"
+                ],
+                "ability": "If you die at night, you are woken to choose a player: you learn their character.",
+                "flavour": "My birds will avenge me! Fly! Fly, my sweet and dutiful pets! To the manor and to the river! To the alleys and to the salons! Fly!",
+            },
+            cannibal: {
+                "id": "cannibal",
+                "name": "Cannibal",
+                "team": "townsfolk",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/8/8e/Icon_cannibal.png"
+                ],
+                "ability": "You have the ability of the recently killed executee. If they are evil, you are poisoned until a good player dies by execution.",
+                "flavour": "I don’t like clowns. They taste funny.",
+            },
+            banshee: {
+                "id": "banshee",
+                "name": "Banshee",
+                "team": "townsfolk",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/6/63/Icon_banshee.png"
+                ],
+                "ability": "If the Demon kills you, all players learn this. From now on, you may nominate twice per day and vote twice per nomination.",
+                "flavour": "Gorm do shúile, dearg do ghruaig, ní bheidh sé i bhfad, is a mbeidh tú san uaigh.",
+            },               
+            tinker: {
+                "id": "tinker",
+                "name": "Tinker",
+                "team": "outsider",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/9/98/Icon_tinker.png"
+                ],
+                "ability": "You might die at any time.",
+                "flavour": "I think I see the problem. Luckily, I have an idea! This catapult will shoot twice as far with just a minor adjustment...",
+            },
+            sweetheart: {
+                "id": "sweetheart",
+                "name": "Sweetheart",
+                "team": "outsider",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/6/6a/Icon_sweetheart.png"
+                ],
+                "ability": "When you die, 1 player is drunk from now on.",
+                "flavour": "I will never forget her. Never.",
+            },
+            drunk: {
+                "id": "drunk",
+                "name": "Drunk",
+                "team": "outsider",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/4/4a/Icon_drunk.png"
+                ],
+                "ability": "You do not know you are the Drunk. You think you are a Townsfolk character, but you are not.",
+                "flavour": "I’m only a *hic* social drinker, my dear. Admittedly, I am a heavy *burp* socializer.",
+            },
+            hatter: {
+                "id": "hatter",
+                "name": "Hatter",
+                "team": "outsider",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/4/44/Icon_hatter.png"
+                ],
+                "ability": "If you died today or tonight, the Minion & Demon players may choose new Minion & Demon characters to be.",
+                "flavour": "One Hat. Too Hat. Three Hat. Tea Hat. Fore Hat. Thrive Hat. Six Hat. Sticks Hat.",
+            },
+            godfather: {
+                "id": "godfather",
+                "name": "Godfather",
+                "team": "minion",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/d/d0/Icon_godfather.png"
+                ],
+                "ability": "You start knowing which Outsiders are in play. If 1 died today, choose a player tonight: they die. [-1 or +1 Outsider]",
+                "flavour": "Normally, it's just business. But when you insult my daughter, you insult me. And when you insult me, you insult my family. You really should be more careful - it would be a shame if you had an unfortunate accident.",
+            },
+            devilsadvocate: {
+                "id": "devilsadvocate",
+                "name": "Devil's Advocate",
+                "team": "minion",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/0/09/Icon_devilsadvocate.png"
+                ],
+                "ability": "Each night, choose a living player (different to last night): if executed tomorrow, they don't die.",
+                "flavour": "My client, should the objection be overruled, pleads innocent by virtue of the prosecution's non-observance of statute 27.B - incorrect or misleading conjugation of a verb. The fact that nine of the jury died last night is simply prima facie, which is, as Wills vs Thule set precedent for, further reason to acquit.",
+            },
+            harpy: {
+                "id": "harpy",
+                "name": "Harpy",
+                "team": "minion",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/d/d3/Icon_harpy.png"
+                ],
+                "ability": "Each night, choose 2 players: tomorrow, the 1st player is mad that the 2nd is evil, or one or both might die.",
+                "flavour": "So fair a day I never did see, nor so fowl a presence hanging over me.",
+            },
+            witch: {
+                "id": "witch",
+                "name": "Witch",
+                "team": "minion",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/7/7b/Icon_witch.png"
+                ],
+                "ability": "Each night, choose a player: if they nominate tomorrow, they die. If just 3 players live, you lose this ability.",
+                "flavour": "Three drops of goat's blood. A lock of hair, torn in anger. The name is spoken, the shadow cast. Walk left foot first down that brambled path, and don't look back.",
+            },
+            psychopath: {
+                "id": "psychopath",
+                "name": "Psychopath",
+                "team": "minion",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/a/a3/Icon_psychopath.png"
+                ],
+                "ability": "Each day, before nominations, you may publicly choose a player: they die. If executed, you only die if you lose roshambo.",
+                "flavour": "Surprise!",
+            },
+            shabaloth: {
+                "id": "shabaloth",
+                "name": "Shabaloth",
+                "team": "demon",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/1/1f/Icon_shabaloth.png"
+                ],
+                "ability": "Each night*, choose 2 players: they die. A dead player you chose last night might be regurgitated.",
+                "flavour": "Blarg f'taag nm mataan! No sho gumtha m'sik na yuuu. Fluuuuuuuuurg h-sikkkh.",
+            },
+            po: {
+                "id": "po",
+                "name": "Po",
+                "team": "demon",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/b/b2/Icon_po.png"
+                ],
+                "ability": "Each night*, you may choose a player: they die. If your last choice was no-one, choose 3 players tonight.",
+                "flavour": "Would you like a flower? I'm so lonely.",
+            },
+            vigormortis: {
+                "id": "vigormortis",
+                "name": "Vigormortis",
+                "team": "demon",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/1/1a/Icon_vigormortis.png"
+                ],
+                "ability": "Each night*, choose a player: they die. Minions you kill keep their ability & poison 1 Townsfolk neighbor. [-1 Outsider]",
+                "flavour": "All doors are one door. All keys are one key. All cups are one cup, but whosoever drinketh of the water that I give shall never thirst, but the water shall be in him a well springing up into everlasting life.",
+            },
+            apprentice: {
+                "id": "apprentice",
+                "name": "Apprentice",
+                "team": "traveller",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/0/03/Icon_apprentice.png"
+                ],
+                "ability": "On your 1st night, you gain a Townsfolk ability (if good) or a Minion ability (if evil).",
+                "flavour": "For years have I traveled, studying the ways of The Craft. Which craft, you ask? Simply that of the simple folk. Nothing to worry about. Not yet.",
+            },
+            butcher: {
+                "id": "butcher",
+                "name": "Butcher",
+                "team": "traveller",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/e/e3/Icon_butcher.png"
+                ],
+                "ability": "Each day, after the 1st execution, you may nominate again.",
+                "flavour": "It tastes like chicken. More please.",
+            },
+            gunslinger: {
+                "id": "gunslinger",
+                "name": "Gunslinger",
+                "team": "traveller",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/1/1c/Icon_gunslinger.png"
+                ],
+                "ability": "Each day, after the 1st vote has been tallied, you may choose a player that voted: they die.",
+                "flavour": "It's time someone took matters into their own hands. That someone... is me.",
+            },
+            judge: {
+                "id": "judge",
+                "name": "Judge",
+                "team": "traveller",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/5/59/Icon_judge.png"
+                ],
+                "ability": "Once per game, if another player nominated, you may choose to force the current execution to pass or fail.",
+                "flavour": "I find the defendant guilty of the crimes of murder, fraud, arson, larceny, impersonating an officer of the law, practicing medicine without a license, slander, regicide, and littering.",
+            },
+            voudon: {
+                "id": "voudon",
+                "name": "Voudon",
+                "team": "traveller",
+                "image": [
+                    "https://wiki.bloodontheclocktower.com/images/6/6d/Icon_voudon.png"
+                ],
+                "ability": "Only you & the dead can vote. They don't need a vote token to do so. A 50% majority isn't required.",
+                "flavour": "Bien venu. Sit down. Breathe deep. Enter the land of the dead. See with their eyes. Speak with their voice. Yon sel lang se janm ase.",
+            },
+        }
+
+        function createCard(data) {
+            var title = document.createElement("h2");
+            title.innerText = data.name;
+
+            var image = document.createElement("img");
+            image.setAttribute("src", data.image[0]);
+
+            var team = document.createElement("p")
+            team.className = `team ${data.team}`
+            team.innerText = data.team
+
+            var hr = document.createElement("hr");
+            var pRule = document.createElement("p");
+            pRule.className = "rule";
+            pRule.innerText = data.ability
+
+            var pFlavour = document.createElement("p");
+            pFlavour.className = `flavour ${data.flavour.length > 160 ? 'smalltext' : ''}`;
+            pFlavour.innerText = data.flavour
+            
+
+            var newCard = document.createElement("div");
+            newCard.className = "card";
+
+            [title, image, team, hr, pRule, pFlavour].map(node => newCard.appendChild(node));
+            
+            var cardBorder = document.createElement("div")
+            cardBorder.className = "cardborder"
+            
+            cardBorder.appendChild(newCard);
+
+            return cardBorder;
+        }
+
+        window.onload = e => {
+            // document.getElementById("newCard").onclick = e => {
+            //     alert("hello!")
+            // }
+
+            script.filter(x => x.id != "_meta").forEach(c => {
+                if(c.id in chars) {
+                    char = chars[c.id]
+                    const times = char.times ? char.times : 1;
+
+                    for (var i = 0; i < times; i++){
+                        document.getElementById("wrapper").appendChild(createCard(char));
+                    }
+                }
+                else {
+                    document.getElementById("wrapper").appendChild(createCard({
+                        name: c.id,
+                        image: ["./wat.png"],
+                        ability: "Rules here",
+                        flavour: "Some flavour here"
+                    }));
+                }
+            });
+
+        }
+    </script>
+</head>
+
+<body>
+    <header class="no-print">
+        <h1>BotC Card Maker</h1>
+    </header>
+    <div id="wrapper">
+
+        <!-- <div class="card">
+            <h2>Card</h2>
+        </div>
+
+        <div class="card">
+            <h2>Card</h2>
+        </div>
+
+        <div class="card">
+            <h2>Card</h2>
+        </div>
+
+        <div class="card">
+            <h2>Card</h2>
+        </div>
+        <div class="card">
+            <h2>Card</h2>
+        </div> -->
+    </div>
+
+</body>
