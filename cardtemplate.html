@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-
+    <title>BotC Card Maker</title>
     <style>
         @font-face {
             font-family: "Dumbledor";
@@ -11,14 +11,14 @@
         }
 
         @page {
-            size: landscape;
+            size: portrait;
 
             margin: 15px;
             /* border: 1px solid red; */
         }
 
         @media print {
-
+            #wrapper {border: 0px;}
             .no-print,
             .no-print * {
                 display: none !important;
@@ -36,19 +36,25 @@
         }
 
         #wrapper {
-            height: 210mm;
-            width: 297mm;
+            box-sizing: border-box;
+            border: 1px dashed #5C1F22;
+            height: 297mm;
+            width: 210mm;
+            margin: 0;
         }
 
         .cardborder
         {
             border: 0.1in solid #5C1F22;
             border-radius: 5px;
-            margin: 0.05in;
+            margin: 0.02in;
             float: left;
 
             padding: 0px;
         }
+
+        
+
         .card {
             box-sizing: border-box;
             text-align: center;
@@ -256,7 +262,7 @@
                 "name": "Village idiot",
                 "team": "townsfolk",
                 "image": [
-                    "Icon_villageidiot.png"
+                    "https://wiki.bloodontheclocktower.com/images/d/da/Icon_villageidiot.png"
                 ],
                 "ability": "Each night, choose a player: you learn their alignment. [+0 to +2 Village Idiots. 1 of the extras is drunk]",
                 "flavour": "Roses are blue, and violets are red, Please reverse what I just said.",
@@ -591,27 +597,9 @@
 <body>
     <header class="no-print">
         <h1>BotC Card Maker</h1>
+        <button>Add script</button>
     </header>
     <div id="wrapper">
-
-        <!-- <div class="card">
-            <h2>Card</h2>
-        </div>
-
-        <div class="card">
-            <h2>Card</h2>
-        </div>
-
-        <div class="card">
-            <h2>Card</h2>
-        </div>
-
-        <div class="card">
-            <h2>Card</h2>
-        </div>
-        <div class="card">
-            <h2>Card</h2>
-        </div> -->
     </div>
 
 </body>
